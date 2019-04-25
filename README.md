@@ -31,3 +31,25 @@ This repository will have all scripts and/or links to pipelines used for the SM 
 5. For all "_expr_breadth.txt"  files, summarize into a matrix:
 
         python sum_contrasts_exprbreadth.py <directory where "_expr_breadth.txt" files are>
+
+### Co-expression
+
+#### Expression correlation
+
+1. Scripts to create correlation matrix can be found here: https://github.com/ShiuLab/Gene_coexpression_scripts/tree/master/Similariry_measures
+
+2. After getting the correlation matrix of the expression set, the median and maximum of each type of correlation for each gene to each SM, GM, and DA class was taken by:
+
+        python get_med-max_corr_from_corr-file.py <correlation matrix> <gene:class file>
+        
+#### Expression clustering
+
+1. R scripts were used to obtain kmeans, cmeans, hierarchical clustering, and wgcna clustering and are available here: https://github.com/ShiuLab/Gene_coexpression_scripts/tree/master/Clustering.
+
+2. In order to combine all cluster files into a categorical matrix:
+
+        python get_cluster_lists_as_matrix.py <directory where cluster files are> <file with all genes you want to use>
+        
+3. Now turn the categorical matrix into a binary one to use in machine learning. Script to convert to binary can be found here: https://github.com/ShiuLab/ML-Pipeline/blob/master/
+
+        python get_cat_as_bin2.py <categorical matrix>
