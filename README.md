@@ -53,3 +53,28 @@ This repository will have all scripts and/or links to pipelines used for the SM 
 3. Now turn the categorical matrix into a binary one to use in machine learning. Script to convert to binary can be found here: https://github.com/ShiuLab/ML-Pipeline/blob/master/
 
         python get_cat_as_bin2.py <categorical matrix>
+
+
+### Evolutionary data
+
+1. Use Orthofinder to get orthologs and paralogs: https://github.com/ShiuLab/OrthoFinder
+
+2. Genes were considered to be homologous if they were in the same orthogroup. Parse out orthologous genes to binary format:
+    
+        python get_orthomatrix.py <directory with all ortholog files> <file with all genes from your species>
+    
+3. Get paralogs (within species homologs) pairs using Duplications.csv file from Orthofinder:
+
+        python parse_dup_get_paralogs.py Duplications.csv species_name
+        
+4. Remove duplicate pairs:
+
+        python remove_dup_rows_pd.py <file>
+
+5. parse paralog data to get binary:
+
+        python parse_paralog-paralog_get_bin.py <paralog pair file>
+
+6. get orthologous pairs:
+
+        python parse_orthofinder_orthologue_file_getpairs.py <ortho _file> <species1> <species2>
