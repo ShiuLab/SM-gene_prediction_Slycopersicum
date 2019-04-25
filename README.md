@@ -57,6 +57,8 @@ This repository will have all scripts and/or links to pipelines used for the SM 
 
 ### Evolutionary data
 
+#### Orthologs
+
 1. Use Orthofinder to get orthologs and paralogs: https://github.com/ShiuLab/OrthoFinder
 
 2. Genes were considered to be homologous if they were in the same orthogroup. Parse out orthologous genes to binary format:
@@ -78,3 +80,26 @@ This repository will have all scripts and/or links to pipelines used for the SM 
 6. get orthologous pairs:
 
         python parse_orthofinder_orthologue_file_getpairs.py <ortho _file> <species1> <species2>
+        
+#### Ka/Ks
+
+1. To determine Ka/Ks, inputs needed include species protein sequence and gene coding sequence, as well as paired gene list.
+
+2. To run on hpc, old python version is needed. Clustal and Paml also need to be installed. If running on hpc, paml and clustal can be found at the directories in the command line.
+
+        module purge
+        module load icc/2015.1.133-GCC-4.9.2
+        module load imp/5.0.2.044
+        module load Python/2.7.9
+        
+3. Run rate pair script. The control file <yn00.ctl> should be in the same directory that you run the script in.
+
+        python AlnUtility.py -f rate_pair -pep <peptide sequence> -cds <coding sequence> -p paml -paml /mnt/home/peipeiw/Documents/Solanales/cds/test/paml/paml4.9a/bin/yn00 -clustal /mnt/home/peipeiw/Documents/Solanales/cds/test/ClustalX1.83/clustalw-2.1-linux-x86_64-libcppstatic -pairs <pair list>
+        
+ 4. Summarize Ka/Ks values in matrix. This script takes the median and maximum ka/ks values for each gene.
+ 
+        python sum_contrasts_kaks.py <start dir> <class file> <output>
+
+
+        
+
