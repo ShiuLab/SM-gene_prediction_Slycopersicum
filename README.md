@@ -100,6 +100,27 @@ This repository will have all scripts and/or links to pipelines used for the SM 
  
         python sum_contrasts_kaks.py <start dir> <class file> <output>
 
+### Duplication data
+
+#### Genomic clustering
+
+1. Make a location and neighbors matrix, ie. for each gene the genes within 100kb and 10 genes.
+
+        python make_location_matrix.py <gff_file>
+        
+2. Using neighbors matrix, parse genes which are SM, GM, DA, and paralogs
+
+        python parse_neighborsmatrix.py <neighbors_matrix> <class_file> <paralog_file>
+        
+#### Most recent duplication node
+
+1. Get node for each gene:
+
+        python getdups.py <Duplications.csv> <species you want>
+        
+2. Get most recent duplication node:
+
+        parse_mostrecentdups_combined.py <genes1> <genefile2> <species abbreviation>
 
         
 
