@@ -122,5 +122,44 @@ This repository will have all scripts and/or links to pipelines used for the SM 
 
         parse_mostrecentdups_combined.py <genes1> <genefile2> <species abbreviation>
 
+### Pathway gene pair data
+
+1. Get within and between pathway pairs. Input is a file with pathway/class/gene, ie. Slycopersicum_SM-GM_PathIDs-genes_20180606.txt
+
+        get_withinandbtwn_path_genepair.py <path:class:genes file>
+        
+2. Get overlap matrix for binary data.
+
+        overlap_binary.py <binary_matrix> <class_file with positive and negative gene pairs>
+        
+3. Get distance matrix for continuous data.
+
+        distance_expression.py <continuous_matrix> <class_file with positive and negative gene pairs>
+        
+4. Get stats for binary overlap data. Use Test_Fisher.py script from https://github.com/ShiuLab/GO-term-enrichment. Put values in a matrix for visualization using heatmap.
+
+    1. get enrichment table
+    
+            parse_binary_get_enrich_table_pairedclasses.py <overlap_matrix>
+        
+    2. Calculate p-value/q-value using Fisher's exact test
+    
+            Test_Fisher.py <enrichment_table> <0 for pvalue, 1 for qvalue>
+        
+    3. Get matrix with all features which have significant values.
+        
+            parse_enrichment_get_sig_matrix_fin.py <directory with .fisher.pqvalue files>
+            
+5. Get stats for continuous distance data. Use Mann-Whitney U test (in R, a subset of the wilcox test) to calculate significance. Put values in a matrix for visualization with a heatmap script.
+
+    1. Run wilcox_test_loop_hpc.R script on continuous matrix
+    
+            R --vanilla --slave --args <working_dir> <distance_matrix> <number of columns in matrix> > wilcox_test_loop_hpc.R
+            
+    2. Get wilcox test p-values in matrix:
+    
+            get_wilcox_pval_matrix.py <directory with .wilcox.test files>
+        
+        
         
 
